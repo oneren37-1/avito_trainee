@@ -1,5 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
+import PageLayout from "../components/PageLayout/PageLayout";
 
 const games = [
     { id: 1, name: 'Game 1' },
@@ -7,9 +8,9 @@ const games = [
     { id: 3, name: 'Game 3' }
 ];
 
-const Home = () => {
+const Home: React.FC = () => {
     return (
-        <div>
+        <PageLayout>
             <h1>Home</h1>
             <ul>
                 {games.map(game => (
@@ -18,7 +19,7 @@ const Home = () => {
                     </li>
                 ))}
             </ul>
-        </div>
+        </PageLayout>
     );
 }
 
