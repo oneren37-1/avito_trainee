@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import Title from "antd/es/typography/Title";
-import {Card, Col, Row, Spin, Typography} from "antd";
-import {LoadingOutlined} from "@ant-design/icons";
+import {Card, Row, Typography} from "antd";
 import {Link} from "react-router-dom";
+import Img from "../../components/Img";
 
 export interface IGameCard {
     id: number;
@@ -15,35 +15,11 @@ export interface IGameCard {
 }
 
 const GameCard: React.FC<IGameCard> = (props) => {
-    const [imageUrl, setImageUrl] = useState(props.thumbnail);
-
-    useEffect(() => {
-        setImageUrl('');
-        const img: HTMLImageElement = new Image();
-        img.src = props.thumbnail;
-        img.onload = () => {
-            setImageUrl(props.thumbnail);
-        };
-    }, [props.thumbnail])
-
     return (
         <Link to={`/game/${props.id}`}>
             <Card
                 hoverable
-                cover={(
-                    <div style={{aspectRatio: '365 / 206'}}>
-                        {imageUrl
-                            ? <img alt="game preview" src={imageUrl} style={{width: "100%"}}/>
-                            : (
-                                <Row justify="center" align="middle" style={{height: '100%'}}>
-                                    <Col>
-                                        <Spin indicator={<LoadingOutlined style={{ fontSize: 24 }} spin />} />
-                                    </Col>
-                                </Row>
-                            )
-                        }
-                    </div>
-                )}
+                cover={<Img src={props.thumbnail} ratio={[365, 206]} />}
             >
                 <Title level={5} style={{margin: 0}}>{props.title}</Title>
                 <Typography.Text type="secondary" > {props.genre}</Typography.Text>

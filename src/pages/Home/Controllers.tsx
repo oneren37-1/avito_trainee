@@ -46,7 +46,7 @@ const Controllers: React.FC = () => {
                                 onChange={value => { setCategories(value) }}
                                 options={categoryOptions}
                                 defaultValue={[]}
-                                placeholder={"Выберите категории"}
+                                placeholder={"Выберите жанр"}
                             >
                             </Select>
                         </Col>
