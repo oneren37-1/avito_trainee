@@ -20,63 +20,33 @@ const Game: React.FC = () => {
             return;
         }
         dispatch(fetchGame(id));
-    }, [id])
+    }, [dispatch, navigate, id])
 
     const content = useAppSelector((state) => state.game.content);
     const loadingStatus = useAppSelector((state) => state.game.status);
     const error = useAppSelector((state) => state.game.error);
 
-    const tabData = content ? [
-        {
-            key: '1',
-            prop: 'Жанр',
-            val: content.genre,
+    const gameDetails = content ? [
+        { prop: 'Жанр', val: content.genre },
+        { prop: 'Издатель', val: content.publisher },
+        { prop: 'Разработчик', val: content.developer },
+        { prop: 'Дата выхода', val: content.release_date }
+    ].map((el:any, i) => {
+        el.key = i.toString();
+        return el
+    }) : [];
 
-        },
-        {
-            key: '2',
-            prop: 'Издатель',
-            val: content.publisher,
-        },
-        {
-            key: '3',
-            prop: 'Разработчик',
-            val: content.developer,
-        },
-        {
-            key: '4',
-            prop: 'Дата выхода',
-            val: content.release_date,
-        }
-    ] : [];
-
-    const requirements = (content && content.minimum_system_requirements) ? [
-        {
-            key: '1',
-            prop: 'ОС',
-            val: content.minimum_system_requirements.os,
-        },
-        {
-            key: '2',
-            prop: 'Процессор',
-            val: content.minimum_system_requirements.processor,
-        },
-        {
-            key: '3',
-            prop: 'Видеокарта',
-            val: content.minimum_system_requirements.graphics,
-        },
-        {
-            key: '4',
-            prop: 'Память',
-            val: content.minimum_system_requirements.memory,
-        },
-        {
-            key: '5',
-            prop: 'Диск',
-            val: content.minimum_system_requirements.storage,
-        }
-    ] : [];
+    const req = content?.minimum_system_requirements
+    const requirements = req ? [
+        { prop: 'ОС', val: req.os },
+        { prop: 'Процессор', val: req.processor },
+        { prop: 'Видеокарта', val: req.graphics },
+        { prop: 'Память', val: req.memory },
+        { prop: 'Диск', val: req.storage }
+    ].map((el:any, i) => {
+        el.key = i.toString();
+        return el
+    }) : [];
 
     const columns = [
         {
@@ -111,7 +81,7 @@ const Game: React.FC = () => {
                     >
                         <Divider orientation="left">Общие сведения</Divider>
                         <Table
-                            dataSource={tabData}
+                            dataSource={gameDetails}
                             columns={columns}
                             pagination={false}
                             showHeader={false}
@@ -119,7 +89,7 @@ const Game: React.FC = () => {
                         {content && content.minimum_system_requirements && (<>
                             <Divider orientation="left">Системные требования</Divider>
                             <Table
-                                    dataSource={requirements}
+                                dataSource={requirements}
                                 columns={columns}
                                 pagination={false}
                                 showHeader={false}

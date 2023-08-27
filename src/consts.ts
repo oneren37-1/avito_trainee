@@ -46,14 +46,14 @@ export const CATEGORIES: string[] = [
     'mmorts'
 ]
 
-export const sortOptions = [
+export const SORT_OPTIONS = [
     {value: "relevance", label: 'По релевантности'},
     {value: 'alphabetical', label: 'По алфавиту'},
     {value: 'popularity', label: 'По популярности'},
     {value: 'release_date', label: 'Дата релиза'},
 ]
 
-export const platformOptions = [
+export const PLATFORM_OPTIONS = [
     {value: "all", label: 'Все платформы'},
     {value: 'pc', label: 'ПК'},
     {value: 'browser', label: 'Браузер'},

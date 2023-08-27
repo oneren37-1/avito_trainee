@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {useAppDispatch} from "../../app/hooks";
-import {CATEGORIES, platformOptions, sortOptions} from "../../consts";
+import {CATEGORIES, PLATFORM_OPTIONS, SORT_OPTIONS} from "../../consts";
 import {fetchGames, IFetchGamesParams} from "../../redux/gamesSlice";
 import {Card, Col, Row, Select, Space} from "antd";
 import {FilterOutlined, SortAscendingOutlined} from "@ant-design/icons";
@@ -22,7 +22,7 @@ const Controllers: React.FC = () => {
             platform: platformType,
             category: categories,
         }))
-    }, [sortType, platformType, categories]);
+    }, [dispatch, sortType, platformType, categories]);
 
     return (
         <Card>
@@ -34,7 +34,7 @@ const Controllers: React.FC = () => {
                             <Select
                                 style={{ minWidth: '150px' }}
                                 onChange={value => { setPlatformType(value) }}
-                                options={platformOptions}
+                                options={PLATFORM_OPTIONS}
                                 defaultValue={platformType}
                             >
                             </Select>
@@ -58,7 +58,7 @@ const Controllers: React.FC = () => {
                     <Col>
                         <Select
                             onChange={value => { setSortType(value) }}
-                            options={sortOptions}
+                            options={SORT_OPTIONS}
                             defaultValue={sortType}
                         >
                         </Select>

@@ -3,24 +3,19 @@ import {Layout} from 'antd';
 import PageHeader from "../PageHeader/PageHeader";
 import style from './PageLayout.module.scss';
 
-const {
-    Header,
-    Content
-} = Layout;
-
-type PageLayoutProps = {
-    children: React.ReactNode;
+interface IPageLayoutProps {
+    children: React.ReactNode
 }
 
-const PageLayout: React.FC<PageLayoutProps> = ({ children }) => {
+const PageLayout: React.FC<IPageLayoutProps> = ({ children }) => {
     return (
         <Layout className={style.container}>
-            <Header className={style.header}><PageHeader /></Header>
-            <Content>
+            <Layout.Header className={style.header}><PageHeader /></Layout.Header>
+            <Layout.Content>
                 <div className={style.content}>
                     { children }
                 </div>
-            </Content>
+            </Layout.Content>
         </Layout>
     );
 }
