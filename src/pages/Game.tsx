@@ -19,7 +19,7 @@ const Game: React.FC = () => {
             navigate('/');
             return;
         }
-        if (loadingStatus !== 'loaded') {
+        if (!content || content.id.toString() !== id) {
             const promise = dispatch(fetchGame(id));
             return () => {
                 promise.abort()
