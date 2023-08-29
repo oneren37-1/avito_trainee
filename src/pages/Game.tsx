@@ -19,7 +19,13 @@ const Game: React.FC = () => {
             navigate('/');
             return;
         }
-        loadingStatus !== 'loaded' && dispatch(fetchGame(id));
+        if (loadingStatus !== 'loaded') {
+            const promise = dispatch(fetchGame(id));
+            return () => {
+                promise.abort()
+            };
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch, navigate, id])
 
     const content = useAppSelector((state) => state.game.content);
@@ -30,7 +36,7 @@ const Game: React.FC = () => {
         { prop: 'Жанр', val: content.genre },
         { prop: 'Издатель', val: content.publisher },
         { prop: 'Разработчик', val: content.developer },
-        { prop: 'Дата выхода', val: content.release_date }
+        { prop: 'Дата выхода', val: new Date(content.release_date).toLocaleDateString() }
     ].map((el:any, i) => {
         el.key = i.toString();
         return el

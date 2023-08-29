@@ -17,11 +17,13 @@ const Controllers: React.FC = () => {
     const [categories, setCategories] = useState<IFetchGamesParams["category"]>([])
 
     useEffect(() => {
-        dispatch(fetchGames({
+        const promise = dispatch(fetchGames({
             sort: sortType,
             platform: platformType,
             category: categories,
         }))
+
+        return () => promise.abort();
     }, [dispatch, sortType, platformType, categories]);
 
     return (

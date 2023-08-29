@@ -52,6 +52,7 @@ export const gamesSlice = createSlice({
             }) : []
         })
         builder.addCase(fetchGames.rejected, (state, action) => {
+            if (action.error.name === 'AbortError') return;
             state.status = 'failed'
             state.error = "Ошибка загрузки"
         })
@@ -66,7 +67,7 @@ export interface IFetchGamesParams {
 
 export const fetchGames = createAsyncThunk(
     'games/fetchGames',
-    async (params?: IFetchGamesParams) => {
+    async (params: IFetchGamesParams, thunkAPI) => {
         const url = new URL('https://free-to-play-games-database.p.rapidapi.com/api/' + ((params && params.category.length) ? 'filter' : 'games'));
 
         if (params) {
@@ -80,7 +81,8 @@ export const fetchGames = createAsyncThunk(
             headers: {
                 'X-RapidAPI-Key': '4c6ad09b64msh85f478e0abf1ef7p1c1434jsnd50eefc49298',
                 'X-RapidAPI-Host': 'free-to-play-games-database.p.rapidapi.com'
-            }
+            },
+            signal: thunkAPI.signal,
         };
 
         return await fetchWithRetry(url, options)
