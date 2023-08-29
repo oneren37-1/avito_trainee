@@ -4,6 +4,7 @@ import Home from "./pages/Home/Home";
 import Game from "./pages/Game";
 
 import './App.css';
+import NotFoundPage from "./pages/404";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/game/:id" element={<Game />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>
   );
