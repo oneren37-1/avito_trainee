@@ -24,7 +24,7 @@ export type GameDetails = {
 
 export interface GameState {
     content?: GameDetails;
-    status: 'idle' | 'loading' | 'failed';
+    status: 'idle' | 'loading' | 'failed' | 'loaded';
     error: string | null;
 }
 
@@ -43,7 +43,7 @@ export const gameSlice = createSlice({
             state.error = null
         })
         builder.addCase(fetchGame.fulfilled, (state, action) => {
-            state.status = 'idle'
+            state.status = 'loaded'
             const data = action.payload;
             state.content = {
                 id: data.id,

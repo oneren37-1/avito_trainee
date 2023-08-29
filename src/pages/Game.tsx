@@ -19,7 +19,7 @@ const Game: React.FC = () => {
             navigate('/');
             return;
         }
-        dispatch(fetchGame(id));
+        loadingStatus !== 'loaded' && dispatch(fetchGame(id));
     }, [dispatch, navigate, id])
 
     const content = useAppSelector((state) => state.game.content);
@@ -73,7 +73,7 @@ const Game: React.FC = () => {
                     <Col><Alert message={error} type="error" /></Col>
                 </Row>
             )}
-            {loadingStatus === "idle" && content && (
+            {loadingStatus === "loaded" && content && (
                 <>
                     <Title>{content.title}</Title>
                     <Card

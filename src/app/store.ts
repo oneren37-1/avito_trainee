@@ -1,13 +1,31 @@
 import {Action, configureStore, ThunkAction} from '@reduxjs/toolkit';
+import {FLUSH, PAUSE, PERSIST, persistReducer, persistStore, PURGE, REGISTER, REHYDRATE,} from 'redux-persist'
+import storage from 'redux-persist/lib/storage';
 import gamesReducer from '../redux/gamesSlice';
 import gameReducer from '../redux/gameSlice';
 
+const persistConfig = {
+    key: 'game',
+    storage,
+    timeout: 5 * 60 * 1000
+};
+
+const persistedGame = persistReducer(persistConfig, gameReducer);
+
 export const store = configureStore({
   reducer: {
-    games: gamesReducer,
-    game: gameReducer
+      game: persistedGame,
+      games: gamesReducer,
   },
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware({
+        serializableCheck: {
+          ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+        },
+      }),
 });
+
+export const persistor = persistStore(store);
 
 export const fetchWithRetry = async (url: URL, options: any, retries = 3) : Promise<any> => {
     try {
