@@ -75,22 +75,10 @@ export const gamesSlice = createSlice({
     }
 });
 
-// export interface IFetchGamesParams {
-//     platform: 'pc' | 'browser' | 'all',
-//     category: string[],
-//     sort: 'relevance' | 'alphabetical' | 'release-date' | 'popularity'
-// }
-
 export const fetchGames = createAsyncThunk(
     'games/fetchGames',
     async (_, thunkAPI) => {
         const url = new URL('http://localhost:3000/games');
-
-        // if (params) {
-            // params.platform && url.searchParams.append('platform', params.platform);
-            // params.sort && url.searchParams.append('sort', params.sort);
-            // params.category.length && url.searchParams.append('category', params.category.join('.'));
-        // }
 
         const state: RootState = thunkAPI.getState() as RootState;
         url.searchParams.append('page', state.games.page.toString());
