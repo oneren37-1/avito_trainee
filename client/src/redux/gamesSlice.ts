@@ -58,7 +58,7 @@ export const gamesSlice = createSlice({
         }
     },
     extraReducers: (builder) => {
-        builder.addCase(fetchGames.pending, (state, action) => {
+        builder.addCase(fetchGames.pending, (state) => {
             state.status = 'loading'
             state.error = null
         })
@@ -68,6 +68,12 @@ export const gamesSlice = createSlice({
             state.games = action.payload.games
         })
         builder.addCase(fetchGames.rejected, (state, action) => {
+            if (action.error.message === 'Not Found') {
+                state.status = 'idle';
+                state.gamesCount = 0;
+                state.games = [];
+                return;
+            }
             if (action.error.name === 'AbortError') return;
             state.status = 'failed'
             state.error = "Ошибка загрузки"
