@@ -44,7 +44,6 @@ export const gameSlice = createSlice({
         })
         builder.addCase(fetchGame.fulfilled, (state, action) => {
             state.status = 'loaded'
-            console.log(action.payload)
             state.content = action.payload
         })
         builder.addCase(fetchGame.rejected, (state, action) => {

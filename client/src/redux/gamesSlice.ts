@@ -104,8 +104,6 @@ export const fetchGames = createAsyncThunk(
             signal: thunkAPI.signal,
         };
 
-        console.log(url.toString())
-
         return await fetchWithRetry(url, options)
             .then(response => response.json())
     }
