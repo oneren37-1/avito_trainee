@@ -44,18 +44,8 @@ export const gameSlice = createSlice({
         })
         builder.addCase(fetchGame.fulfilled, (state, action) => {
             state.status = 'loaded'
-            const data = action.payload;
-            state.content = {
-                id: data.id,
-                title: data.title,
-                release_date: data.release_date,
-                thumbnail: data.thumbnail,
-                genre: data.genre,
-                publisher: data.publisher,
-                developer: data.developer,
-                minimum_system_requirements: data.minimum_system_requirements,
-                screenshots: data.screenshots
-            }
+            console.log(action.payload)
+            state.content = action.payload
         })
         builder.addCase(fetchGame.rejected, (state, action) => {
             if (action.error.name === 'AbortError') return;
@@ -68,16 +58,13 @@ export const gameSlice = createSlice({
 export const fetchGame = createAsyncThunk(
     'game/fetchGame',
     async (id: string, thunkAPI) => {
-        const url = new URL('https://free-to-play-games-database.p.rapidapi.com/api/game');
+        // const url = new URL('https://free-to-play-games-database.p.rapidapi.com/api/game');
+        const url = new URL('http://localhost:3000/game');
 
         url.searchParams.append('id', id);
 
         const options = {
             method: 'GET',
-            headers: {
-                'X-RapidAPI-Key': '4c6ad09b64msh85f478e0abf1ef7p1c1434jsnd50eefc49298',
-                'X-RapidAPI-Host': 'free-to-play-games-database.p.rapidapi.com'
-            },
             signal: thunkAPI.signal,
         };
 
