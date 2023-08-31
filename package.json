@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
+    "ci": "npm ci && npm run ci:client && npm run ci:server",
+    "ci:client": "cd ./client && npm ci && cd ..",
+    "ci:server": "cd ./server && npm ci && cd ..",
     "start": "npm-run-all -p start:server start:client",
     "start:client": "cd ./client && npm start",
     "start:server": "cd ./server && npm start"

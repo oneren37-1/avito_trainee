@@ -44,7 +44,7 @@ app.get('/game', (req, res) => {
             res.status(200).send(new GameDTO(data));
         })
         .catch((err) => {
-            console.log(err);2
+            console.log(err);
             res.status(500).send()
         });
 });

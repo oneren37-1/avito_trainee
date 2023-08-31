@@ -5,7 +5,7 @@
 ## Запуск
 
 ```
-npm ci
+npm run ci
 npm start
 ```
 
